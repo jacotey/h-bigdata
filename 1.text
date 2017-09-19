@@ -1,0 +1,54 @@
+#if([traceId])，字段不存在，null都会为false
+filter
+{
+  #源
+  json
+  {
+    source => "message"
+  }
+}
+
+if([traceId])
+{
+  mutate
+  {
+    add_field=> {"traceid"=>"%{traceId}"}
+  }
+}
+
+add_field => 
+{
+  "[fields][env_name]" => "%{env}"
+  "[fields][env_name1]" => "%{env}"
+}
+
+#类型转换
+mutate
+  {
+    convert=> {"duration"=>"integer"}
+  }
+  
+#移除多个字段
+mutate
+  {
+    remove_field=> {"startTime"=>"endTime"}
+  } 
+  
+  #更新
+mutate
+  {
+    update=> {"sample"=>"My new message"}
+  } 
+  
+  #控制台输入
+  input
+  {
+    stdin{}
+  }
+  
+  #输出
+  output
+  {
+    stdout{codec=>rubydebug}
+  }
+  
