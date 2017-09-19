@@ -1,0 +1,2 @@
+show partitions openapi;查看分区
+hive外部表记录数据路径，内部表会将数据加载到hive
