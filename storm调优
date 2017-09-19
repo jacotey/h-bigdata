@@ -1,0 +1,20 @@
+1.提高storm topology数据处理能力，首先增加spout来提高吞吐量（最多和topic分区数想到，给予多一点的分区），提高了吞吐量之后，需要匹配的bolt来处理这些数据，ack来确认这些数据。增加以上3个参数就增加了storm topology的数据处理能力。
+2.缩短offset提交时间（DEFAULT_OFFSET_COMMIT_PERIOD_MS默认10000ms），可以提高spout从kafka poll数据的频率（cpu足够的情况下，cpu满负荷调节此参数无意义，受DEFAULT_MAX_UNCOMMIT_OFFSET_NUM制约），从而提高了数据处理速度。（根据当前topology数据处理能力情况调大调小该参数）。
+另外：默认最大容许的未提交offset数（默认500），此参数最好不要做修改，容易出现各种异常，推测是因为topology当中未处理数据太多造成程序爆掉。
+3.关于storm瓶颈问题主要通过监控webui上的以下4个参数确认问题所在：
+1).comlete latency:spout发出tuple到spout到ack该tuple所花平均时间。
+2).Execute latency:bolt excute所花平均时间（处理消息的时效性），通过增加bolt来减少化肥时间。
+3).Process latency:bolt excute到ack所花平均时间（处理消息的时效性），通过增加bolt，ack来减少花费时间。
+4).Capacity：表示处理能力是否已经饱和，越接近1表示越饱和，需要增加平行数（bolt）。
+4.提高worker的数量，可以提高吞吐量？主要是把cpu压力分散。
+5.根据实际跟测：20个分区每10分钟可以吞吐200多万条数据。
+6.出现异常：
+1).comlete latency过高，让poll的数据控制在一个合理的范围（还可以调整max_spout_pending）。
+2).cpu过高会导致计算机计算能力下降？
+7.带验证的调优参数
+//max.poll.records
+//max.poll.interval.ms
+//enable.auto.commit
+8.每次consumer从kafka poll数据时，每次poll会有一个量的控制，"max.partition.fetch.bytes"配置决定。（针对每个分区）
+9.多长时间去poll?
+10.结合kafka的配置文件。
