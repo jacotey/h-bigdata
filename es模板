@@ -1,0 +1,50 @@
+#这个应该在根{}里面
+"_all":
+{
+  "searchAnalyzer":"ik",
+  "term_vector":"no",
+  "indexAnalyzer":"ik",
+  "enabled":true
+}
+
+{
+  "order":0,
+   "templage":"jalor5_log_sit-*",
+   "settings":
+   {
+      "index":
+      {
+        "number_of_shards":"5",
+        "number_of_replicas":"2",
+        "refresh_interval":"30s"
+      }
+   },
+   "mappings":
+   {
+      "jalor5_rpc_monitor":
+      {
+        "properties":
+        {
+          "serviceType":
+          {
+            "type":"string"
+          },
+          "traceDate_date":
+          {
+            "format":"dateOptionalTime",
+            "type":"date"
+          },
+          "serviceName":
+          {
+            "index":"not_analyzed",
+            "type":"string"
+          },
+          "fields.env_name":
+          {
+            "fielddata":true,
+            "type":"string"
+          },
+        }
+      }
+   }
+}
