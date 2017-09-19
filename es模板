@@ -46,5 +46,9 @@
           },
         }
       }
+   },
+   "aliases":
+   {
+    "tarce_log_sit":{}
    }
 }
