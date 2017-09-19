@@ -1,0 +1,5 @@
+/root/filebeat5.2.2_uat/filebeat/global.yml
+指定发送的kafka地址
+
+/root/filebeat5.2.2_uat/filebeat/ymls/xxx.yml
+xxx.yml中指定读取文件
