@@ -1,0 +1,23 @@
+cluster.name:es-liu-test
+#0.0.0.0访问无限制
+network.host:0.0.0.0
+node.master:true
+node.data:true
+node.name:076-node1
+http.port:9200
+transport.tcp.port:9300
+#节点像指定的主机发送单播请求
+discovery.zen.ping.unicast.hosts:["szxtsp076-hae"]
+#集群中最少的主节点数
+discovery.zen.minimum_master_nodes:1
+
+查看节点数：https://szxtsp076-hae:9200/_cat/nodes?v
+查看版本：curl localhost:9200/?filter_path=version.number -u admin:admin
+
+注意elasticsearch启动用elastic用户启动
+改变elasticsearch文件夹所有者到当前用户
+sudo chown -R elastic:elastic elasticsearch
+
+vm.max_map_count [65530] is too low
+vi /etc/sysctl.conf
+sysctl -p
