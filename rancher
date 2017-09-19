@@ -1,0 +1,80 @@
+host:添加主机，每台主机首先要先安装了docker，然后找一台安装rancher server，然后在rancher webui中将脚本拷贝到每一台主机运行以主持rancher agent
+
+infrastructure:
+网络：ipsec或者vxlan，用ipsec
+
+容器数量：
+run1个容器
+总是在每台主机上运行一个此容器的实例
+
+添加服务种有负载均衡
+
+标签：给主机打标签，启动容器服务的时候可以指定在哪些标签主机上启动
+
+卷：docker路径映射物理机路径：
+/data/share/elasticsearch/data:/usr/share/elasticsearch/data，前面是本地路径
+
+1.一般制作的镜像在服务启动的时候，读取环境变量作为参数传给程序
+2.环境变量叫什么名字，具体要看看镜像文件中的脚本是怎么命名的
+注意看github上镜像的启动脚本
+
+es-docker.yml：
+es-rancher.yml：可以定义变量，然后会传给es-docker.yml文件
+要找rancher的api可以在webui中找到实例
+
+confd用于动态修改容器的一些参数
+
+去dockerhub下载镜像
+
+拉取镜像打造自己的应用商店：
+1.从阿里云pull镜像：docker pull rawmind/alpine-kafka:0.10.0.1-1（版本参考应用商店中的docker-compose.yml文件中的镜像）
+2.将镜像保存到本地：docker save -o rawmind_alpine-kafka_0.10.0.1.tar 2820f7608bae
+3.push到本地仓库
+
+docker login nexus.lcloud:5000 -u docker -p docker
+docker tag f19f56d798f3 nexus.registry:5000/rawmind/rancher-kafka:0.10.0.0-3
+docker rmi gitlab/gitlab-ce1:latest
+docker load -i xxx.tar 导入tar镜像包
+docker push nexus.registry:5000/rawmind/rancher-kafka
+杀死所有running状态的容器
+docker kill $(docker ps -q)
+删除所有已经停止的容器
+docker rm $(docker ps -a -q)
+删除所有\'untagged/dangling\'状态的镜像
+docker rmi -f $(docker images -q -f dangling=true)
+删除所有的镜像：
+docker rmi -f $(docker images -q)
+
+systemctl enable docker 开机启动容器服务
+services docker stop,start,restart
+docker stop 容器id
+docker rm -f 容器id
+docker的镜像与容器都存储在/var/lib/docker下面，可以全部删掉，然后重启docker
+
+kafka安装版本：rawmind/alpine-kafka:0.10.0.1-1，zk也是用的这个作者的，
+https://github.com/rawmind0/alpine-kafka/blob/0.10.2.1/root/opt/kafka/bin/server.properties.sh
+advertise_pub_ip=true，同时要把9092的端口暴露出来，kafka会去访问这个端口
+
+rancher模板，自定义catalog，在github上构建template（注意目录结构，0表示一个版本，1表示一个版本）
+https://github.com/rancher/communtity-catalog/tree/master/templates/elasticsearch
+
+dockerfile：
+讲解add http://www.cnblogs.com/51kata/p/5264894.html
+讲解from
+http://www.cnblogs.com/coolworld/p/5486656.html
+http://www.cnblogs.com/liuyansheng/p6098470.html
+命令：
+add elasticsearch-analysis-ik-5.2.0.jar /usr/share/elasticsearch/lib/
+run echo 'index.analysis.analyzer.ik.type:"ik"' >> /usr/share/elasticsearch/config/elasticsearch.yml
+
+#ik
+from nexus.lcloud:5000/elasticsearch-lc:5.2.0
+add ik /usr/share/elasticsearch/plugins/ik
+user root
+run chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/plugins/ik
+user elasticsearch
+
+1.创建Dockerfile文件
+touch Dockerfile
+2.在Dockerfile文件所在目录运行命令：.不是指当前目录
+docker build -t liu:5.2.0 .
