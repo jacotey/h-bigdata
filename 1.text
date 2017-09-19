@@ -34,6 +34,22 @@ mutate
     remove_field=> {"startTime"=>"endTime"}
   } 
   
+  #to_f到毫秒，to_i到秒
+  #1502028026940000,/1000000.0
+  if([startTime])
+  {
+    ruby
+    {
+      code=>"event.set('starttime1',(Time.at(event.get('startTime').to_f/1000.0).strftime('%Y-%m-%d %H:%M:%S')+'.'+event.get('startTime').to_s[-3,3]).to_s)"
+      date
+      {
+        match => ["starttime1","yyyy-MM-dd HH:mm:ss.SSS"]
+        target => "starttime"
+        timezone => "%{timezone}"
+      }
+    }
+  }
+  
   #更新
 mutate
   {
