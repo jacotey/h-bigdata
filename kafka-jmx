@@ -1,0 +1,11 @@
+修改bin/kafka-server-start.sh，添加JMX_PORT参数
+
+jconsole.exe中访问jmx端口
+
+OneMinuteRate：监控1分钟内，平均每秒type
+
+容器中监控，第一步以外，修改bin/kafka-run-class.sh，宿主机ip
+#JMX settings
+-Djava.rmi.server.hostname=10.115.138.32添加在...ssl=false后面
+#JMX port to use
+-Dcom.sun.management.jmxremote.rmi.port=$JMX_PORT添加在$JMX_PORT后面
