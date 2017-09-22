@@ -31,4 +31,21 @@ ctrl+backspace，linux回退
 ctrl+shift+c，ctrl+shift+v，linux复制，粘贴，反键=复制+粘贴
 hadoop fs -lsr -h /user/ideal/ljx_test/openAPI_final/20170406/10 | grep "^-" | wc -l，查看文件数量
 secureCRT，options->session options->emulation，改成linux可以解决键盘的问题
-hadoop fs 
+hadoop fs -du -h /user/lcloud，查看文件夹大小
+id，查看用户
+du -h | awk '{print $1}'，打印第一列
+seq -w 1 20，输出1到20，-w表示同宽，seq命令用于产生从某个数到另外一个数之间的所有整数
+sed '2d' test.txt，删除文件第二行，sed是一种流编辑器，他是文本处理器中常用的工具
+export JAVA_HOME=/data01/brain/jdk1.8，导入环境变量，对当前窗口有效
+
+ctrl+shift+/，注释，（\反注释），eclipse
+alt+左右键，返回上一光标，下一光标，eclipse
+
+alt+选择行，notepad++显示好多光标
+
+eclipse虚线：http://www.cnblogs.com/chenmo-xpw/p/5677904.html
+虚线对齐插件：indent guide
+
+ps -ef | grep hello | awk '{print $2}' | xargs kill -9，删除所有grep出的进程
+du -h * | sort -rh | head -10，找出目录下最大的10个文件
+passwd elastic，修改密码
