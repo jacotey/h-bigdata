@@ -1,0 +1,34 @@
+telnet ip port
+java-code style-formatter-新建一个自己的style，line wrapping设置多宽自动换行，文本环绕
+linux：ctrl+r
+build project在maven工程：target/classes下
+strings user.tab
+kaf-kaf文件夹改成trace打包不过去文件：buildpath，看看各个原文件夹的output是否正确
+pom里面有打包名字，版本控制，入口函数，打包依赖
+linux：java -jar jar包的名称 &，后台运行
+linux：free -h，查看内存，top：使用内存按序排名
+linux：ps -ef | grep jar包的名称，查看所有的进程，e显示所有，f全格式
+linux：du -h --max-depth=1，查看文件夹大小
+kill -9 pid，9强制
+storm webui页面所有打开都一样，都打印到一个日志文件里面了，时间会被覆盖
+nohup java -jar xx.jar &，这个是真的后台运行，关掉窗口都么事
+java程序前后台切换：ctrl+z，挂起这个程序
+后台运行：bg 1（bg后面的数字为作业号，自己起的）
+前台运行：fg 1（1和前面的呼应）
+ls-lh，显示大小m
+tail -100f log.log |grep ERROR，查看最后100行
+eclipse package显示样式，view menu->"Flat（扁平）"，"Hierarchical（分层）"
+jre system library修改引用jar包版本，properties->java compiler修改编译版本，解决大片红x的问题
+alt键可以批量操作，在note++里面
+sublime text，view->syntax选择开发环境
+eclipse：ctrl+shift+/ /**/
+远程启动执行shell命令，都是用salt
+查看端口：netstat -apn | grep 80，lsof -i:80
+超链接：ln -s /bin/less /usr/local/bin/less
+cat xxx.txt | wc -l，查看行数
+hadoop fs -ls -R -h /user/ideal/ljx/，-h更好看一点
+ctrl+backspace，linux回退
+ctrl+shift+c，ctrl+shift+v，linux复制，粘贴，反键=复制+粘贴
+hadoop fs -lsr -h /user/ideal/ljx_test/openAPI_final/20170406/10 | grep "^-" | wc -l，查看文件数量
+secureCRT，options->session options->emulation，改成linux可以解决键盘的问题
+hadoop fs 
