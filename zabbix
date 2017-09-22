@@ -1,1 +1,7 @@
 http://solin.blog.51cto.com/11319413/1846775
+
+es监控：等待线程数，磁盘利用率
+
+kafka监控：节点流量，topic流量，分区流量
+
+logstash：查看消费有没有延迟
