@@ -1,0 +1,2 @@
+copy配置：
+将新建的workspace下的.metadata\.plugins内容全部删除，将原来的workspace下的.metadata\.plugins文件夹里除了org.eclipse.core.resources文件夹，其他所有文件夹全部拷贝到新workspace的.metadata\.plugins目录下
