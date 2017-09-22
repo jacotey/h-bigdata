@@ -1,3 +1,5 @@
+es分片：index被分成多少片
+
 cluster.name:es-liu-test
 #0.0.0.0访问无限制
 network.host:0.0.0.0
