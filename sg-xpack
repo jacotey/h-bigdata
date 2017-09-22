@@ -1,0 +1,117 @@
+elastisearch.yml
+
+searchguard.ssl.transport.keystore_filepath:node-0-keystore.jks
+searchguard.ssl.transport.keystore_password:changeit
+searchguard.ssl.transport.truststore_filepath:truststore.jks
+searchguard.ssl.transport.truststore_password:changeit
+searchguard.ssl.transport.enforce_hostname_verification:false
+
+searchguard.ssl.http.enabled:true
+searchguard.ssl.http.keystore_filepath:node-0-keystore.jks
+searchguard.ssl.http.keystore_password:changeit
+searchguard.ssl.http.truststore_filepath:truststore.jks
+searchguard.ssl.http.truststore_password:changeit
+
+searchguard.authcz.admin_dn:
+ - CN=kirk,OU=client,O=client,L=test,C=DE
+ 
+ #xpack
+ xpack.security.enabled:false
+ xpack.monitoring.enabled:true
+ xpack.graph.enabled:false
+ xpack.watcher.enabled:false
+ 
+ xpack.monitoring.exporters:
+  my_remote:
+   type:http
+   host:[https://localhost:9200]
+   auth:
+    username:admin
+    password:admin
+   connection:
+    timeout:6s
+    read_timeout:60s
+   ssl:
+    truststore.path:truststore.jks
+    truststore.password:changeit
+    
+kibana.yml
+
+server.port:5601
+server.host:"0.0.0.0"
+elasticsearch.url:"https://szxtsp076-hae.huawei.com:9200"
+xpack.security.enabled:false
+
+elasticsearch.username:"kibanaserver"
+elasticsearch.password:"kibanaserver"
+
+elasticsearch.ssl.ca:/data01/kibana-5.2.2-linux-x86_64/config/root-ca.pem
+elasticsearch.ssl.verify:false
+
+kibana.index:".kibana"
+
+参考：
+https://github.com/floragunncom/search-guard-module-kibana-multitenancy/wiki
+https://github.com/floragunncom/search-guard-docs/blob/master/multitenancy.md
+https://github.com/floragunncom/search-guard-docs/blob/master/kibana.md
+
+1.kibana安装sg:searchguard-kibana-5.2.2-3.zip解压到kibana安装目录/plugins/
+2.dlic-search-guard-module-kibana-multitenancy-5.2-2-jar-with-dependencies.jar放到es安装目录/plugins/search-guard-5/
+
+ 遗留问题：
+ 有问题多看看官方镜像的Dockerfile，启动脚本是如何使用环境变量的
+ 多租户
+ 
+ sg_roles.yml
+ sg_kibana_server:
+   cluster:
+       - CLUSTER_MONITOR
+       - CLUSTER_COMPOSITE_OPS
+       - cluster:admin/xpack/monitoring*
+   indices:
+     '?kibana':
+       '*':
+         - ALL
+     '?reporting*':
+       '*':
+         - ALL
+     '?monitoring*':
+       '*':
+         - ALL
+         
+sg_config.yml
+searchguard:
+  dynamic:
+    kibana:
+      # Kibana multitenanacy - NOT FREE FOR COMMERCIAL USE
+      # see https://github.com/floragunncom/search-guard-docs/blob/master/multitenancy.md
+      # To make this work you need to install https://github.com/floragunncom/search-guard-module-kibana-multitenancy/wiki
+      multitenancy_enabled:true
+      server_username:kibanaserver
+      do_not_fail_on_forbidden:false
+    http:
+      anonymous_auth_enabled:false
+      xff:
+        enabled:false
+        internalProxies:'192\.168\.0\10|192\.168\.0\.11' # regex pattern
+        remoteIpHeader: 'x-forwarded-for'
+        proxiesHeader: 'x-forwarded-by'
+      authc:
+        kerberos_auth_domain:
+          enabled:true
+          order: 1
+          http_authenticator:
+            type: basic
+            challenge: true
+            config:
+              krb_debug: false
+              strip_realm_from_principal:true
+            authentication_backend:
+              type: internal
+          basic_internal_auth_domain:
+            enabled: true
+            order: 4
+            http_authenticator:
+            ...
+            ...
+      
