@@ -1,0 +1,18 @@
+常用命令：
+salt-master restart     重启master，如果执行不了在前面加上service看看
+salt '*' test.ping      ping所有的minion
+salt-key                查看key
+salt-key -A             accept未accept的key
+service salt-api status 查看api状态
+service salt-master status  查看master状态
+service salt-api start  启动salt-api，restart，stop
+
+salt-api配置文件路径：/etc/salt/master.d/api.con
+
+minion did not return [not connected]
+1.删除key
+salt-key -d dggts10003574
+2.重启minion服务（在master机器上执行命令），不行的话就重装minion
+service salt-minion restart
+3.添加key
+4.重启master服务（非必要）
