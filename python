@@ -1,0 +1,19 @@
+numpy：用于处理大规模多维数据
+scipy：数学库
+scikit-learn：机器学习库
+matplotlib：可视化数据神器。文档和示例地址：http://matplotlib.org/gallery.html
+
+上面的安装文件如果是exe，会自动帮你拷贝到python目录。否则你需要自己拷贝到python3.4.2\Lib\site-packages下。
+
+pip install "numpy-1.12.1rc1+mkl-cp36-cp36m-win32.whl"
+注意：
+1.numpy包名称要加英文双引号
+2.下载的numpy包要拷贝到python安装目录下的scripts文件夹下，如D：softwares_diy\Python34\Scripts下，因为只有在这个目录下，pip安装命令才好使。
+
+scikit-learn下载地址：
+http://blog.csdn.net/dillon2015/article/details/54834741
+http://www.lfd.uci.edu/`gohlke/pythonlibs/
+
+错误：
+no matching distribution found for python-dateutil<from matplotlib==2.0.2>
+缺少python-dateutil
