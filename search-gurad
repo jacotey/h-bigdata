@@ -7,4 +7,16 @@ http://cnblogs.com/shifu204/p/6376683.html
 es.kibana配置证书：http://www.2cto.com/os/201610/559841.html
 logstash配置证书：https://my.oschina.net/huangweibin/blog/820858
 
+ssl生成hash密码
+
+searchguard初始化命令
+
+searchguard pai源码，api jar包：https://github.com/floragunncom/search-guard-rest-api
+1.记得打包searchguard rest api jar包到search-guard-5
+2.访问searchgurad rest api，需要证书进行访问，searchguard.ssl.http.enabled:true
+
+curl -u shifu:123 'https://10.42.102.34:9206'
+参考：https://github.com/floragunncom/search-guard/issues/306
+代码curl访问参考：http://blog.csdn.net/kobejayandy/article/details/44761913
+
 
