@@ -1,0 +1,14 @@
+clone项目
+git clone http://szxtsp035-hae.huawei.com/root/rancher-catalog.git
+
+上传文件
+1)git status                    查看有变化的文件
+2)git add es-cluster-liu1       想要提交的文件名
+3)git commit -m "注释的一些信息"
+4)git push -u origin master     提交git
+5)提交模板之后，rancher会自动更新，修改之后也会
+
+问题描述：
+git 提交出现这个错误fatal:unable to create 'project_path/.git/index.lock':File exists. exists
+解决方法： rm -f ./.git/index.lock
+git push -u origin master -f  强制提交
