@@ -17,3 +17,23 @@ http://www.lfd.uci.edu/`gohlke/pythonlibs/
 错误：
 no matching distribution found for python-dateutil<from matplotlib==2.0.2>
 缺少python-dateutil
+
+scikit-learn：
+http://scikit-learn.org/stable/auto_examples/plot_cv_predict.html#sphx-glr-auto-examples-plot-cv-predict-py
+
+python语法：http://www.runoob.com/python/python-basic-syntax.html
+
+可以理解为"if __name__=="__main__":"这一句与c中的main()函数所表述的是一致的，即作为入口
+
+python有5个标准的数据类型：
+Numbers
+String
+List（列表）
+Tuple（元祖）
+Dictionary（字典）
+
+算法：
+knn：http://blog.csdn.net/zouxy09/article/details/16955347
+线性回归：http://blog.csdn.net/suipingsp/article/details/42101139
+决策树：http://blog.csdn.net/csqazwsxedc/article/details/65697652
+朴素贝叶斯：http://blog.csdn.net/dream_angel_z/article/details/46120867
